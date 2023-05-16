@@ -1,5 +1,12 @@
 <template>
-  <li v-for = "(item, index) in infoayat">
+
+  <li class="card" style="width: 20rem;" v-for = "(item) in infosurah">
+    {{item.id + ". " + item.name_simple + " (" + item.name_arabic + ") - "}}
+    {{item.verses_count + ' ayat'}}
+    <p><router-link :to="{name: 'ayat', params: {id: item. id}}" class="btn btn-primary">Read</router-link></p>
+  </li>
+
+  <li class="card" v-for = "(item, index) in infoayat">
     {{item.verse_key+ " (" + item.text_uthmani + ") - "}}
   <p v-html= "infoarti[index].text"> </p>
   </li>
@@ -22,7 +29,7 @@ export default {
   },
   methods: {
     getinfoayat() {
-      axios.get('\n' + 'https://api.quran.com/api/v4/quran/verses/uthmani')
+      axios.get('\n' + `https://api.quran.com/api/v4/quran/verses/uthmani?chapter_number=${this.$route.params.id}`)
           .then((respons) => {
             console.log(respons)
             this.infoayat = respons.data.verses
@@ -32,7 +39,7 @@ export default {
     },
 
     getinfoarti() {
-      axios.get('\n' + 'https://api.quran.com/api/v4/quran/translations/33')
+      axios.get('\n' + `https://api.quran.com/api/v4/quran/translations/33?chapter_number=${this.$route.params.id}`)
           .then((respons) => {
             console.log(respons)
             this.infoarti = respons.data.translations
@@ -46,5 +53,11 @@ export default {
 </script>
 
 <style scoped>
-
+li{
+  text-align: left;
+  margin-left: 50px;
+  margin-right: 30px;
+  list-style: none;
+  margin-top: 5px;
+}
 </style>

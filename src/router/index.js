@@ -26,13 +26,13 @@ const router = createRouter({
       component: () => import('../views/surah.vue')
     },
     {
-      path: '/ayat',
+      path: '/ayat:id',
       name: 'ayat',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/ayat.vue')
-    }
+    },
   ]
 })
 
